@@ -47,6 +47,22 @@ class TeamService {
       await session.close();
     }
   }
+  async getTeams(memberEmail:string): Promise<Team[] | null> {
+    const session = driver.session();
+    try{
+      const result = await session.run(
+        `MATCH( member:Member {email: $memberEmail})-[:MEMBER_OF]->(team:Team) RETURN team`,
+        {memberEmail: memberEmail}
+      );
+      if (result.records.length === 0) return null;
+      return result.records.map(record => record.get('team').properties as Team);
+    }catch(error){
+      console.error("Error retrieving teams by user email:", error);
+      return null;
+    }finally{
+      await session.close();
+    }
+  }
 }
 
 export default TeamService;

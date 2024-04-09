@@ -6,5 +6,4 @@ export interface ActivityProject {
     creationDate: string;
     startDate: string;
     finalDate: string;
- 
   }

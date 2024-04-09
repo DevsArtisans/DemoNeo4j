@@ -13,6 +13,7 @@ const TeamSchema = createSchema({
 
         type Query {
           getTeamByName(name: String!): Team
+          getTeamsByUserEmail(email: String!): [Team]
         }
         type Mutation{
           createTeam(name:String!,description: String!, leader:String!): Team    
@@ -22,6 +23,9 @@ const TeamSchema = createSchema({
     Query: {
       getTeamByName: async(_,{name}) =>{
         return await teamService.getTeamByName(name)
+      },
+      getTeamsByUserEmail: async(_,{email}) =>{
+        return await teamService.getTeams(email)
       },
     },
     Mutation: {
