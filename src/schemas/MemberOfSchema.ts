@@ -26,3 +26,4 @@ const MemberOfSchema = createSchema({
     },
   },
 });
+export default MemberOfSchema;
