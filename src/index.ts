@@ -1,17 +1,17 @@
 import { createYoga } from "graphql-yoga";
-import MemberSchema from "./schemas/MemberSchema";
+import schema from "./schemas/schemasServer";
 
-const Member = createYoga({
-    schema: MemberSchema,
+const ServerSchema = createYoga({
+    schema: schema
 });
 
 const server = Bun.serve({
-    fetch: Member,
+    fetch: ServerSchema,
 })
 
 console.info(
     `Server is running on ${new URL(
-        Member.graphqlEndpoint,
+        ServerSchema.graphqlEndpoint,
         `http://${server.hostname}:${server.port}`
     )}`
 )
