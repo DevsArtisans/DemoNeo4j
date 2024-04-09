@@ -5,6 +5,5 @@ export interface ActivityImplementation {
   priority: string;
   creationDate: string;
   startDate: string;
-
   finalDate: string;
 }
