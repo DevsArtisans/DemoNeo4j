@@ -7,9 +7,9 @@
   },
   "scripts": {
     "start": "bun run index.ts",
-    "dev": "bun run index.ts --watch",
+    "dev": "bun run src/index.ts --watch",
     "test": "bun test",
-    "build": "bun build ./index.ts --outdir ./out "
+    "build": "bun build src/index.ts --outdir ./out "
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
