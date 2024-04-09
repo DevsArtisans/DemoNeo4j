@@ -24,6 +24,11 @@ const MemberSchema = createSchema({
         return await memberService.getMemberByEmail(email)
       },
     },
+    Mutation: {
+      createMember: async(_,{name,email,role}) =>{
+        return await memberService.createMember({name,email,role})
+      },
+    }
   },
 });
 
