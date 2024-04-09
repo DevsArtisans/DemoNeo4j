@@ -1,7 +1,9 @@
 import { createSchema } from "graphql-yoga"
 import TeamService from "../services/TeamService";
+import MemberOfService from "../services/MemberOfService";
 
-const teamService = new TeamService()
+const teamService = new TeamService();
+const memberOfService = new MemberOfService();
 
 const TeamSchema = createSchema({
   typeDefs: /* GraphQL */ `
@@ -30,7 +32,8 @@ const TeamSchema = createSchema({
     },
     Mutation: {
       createTeam: async(_,{name,description,leader}) =>{
-        return await teamService.createTeam({name,description,leader})
+        await memberOfService.addMemberToTeam(leader,name);
+        return await teamService.createTeam({name,description,leader});
       },
     }
   },
