@@ -13,6 +13,7 @@ const MemberSchema = createSchema({
 
         type Query {
           getMemberByEmail(email: String!): Member
+          getMembersByTeam(teamName: String!): [Member]
         }
         type Mutation{
           createMember(name:String!,email: String!, role:String!): Member    
@@ -22,6 +23,9 @@ const MemberSchema = createSchema({
     Query: {
       getMemberByEmail: async(_,{email}) =>{
         return await memberService.getMemberByEmail(email)
+      },
+      getMembersByTeam: async(_,{teamName}) =>{
+        return await memberService.getMembersByTeam(teamName)
       },
     },
     Mutation: {

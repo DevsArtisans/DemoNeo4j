@@ -30,4 +30,13 @@ describe("MemberService", () => {
     );
     expect(member).toBeNull();
   });
+
+  test("getMembersByTeam", async () => {
+    const teamName = "Equipo Dinamita";
+    const members = await memberService.getMembersByTeam(teamName);
+    expect(members).toBeDefined();
+    expect(Array.isArray(members)).toBeTruthy();
+    expect(members).toHaveLength(1);
+    expect(members![0].name).toBe("Diego");
+  });
 });

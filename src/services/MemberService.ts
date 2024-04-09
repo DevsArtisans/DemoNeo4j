@@ -55,6 +55,24 @@ class MemberService {
     }
   }
 
+  async getMembersByTeam(teamName: string): Promise<Member[] | null> {
+    const session = driver.session();
+    try {
+      const result = await session.run(
+        `MATCH (members:Member)-[:MEMBER_OF]->(t:Team {name: $teamName}) RETURN members`,
+        { teamName }
+      );
+
+      if (result.records.length === 0) return null;
+
+      return result.records.map(record => record.get('members').properties as Member);
+    } catch (error) {
+      console.error("Error retrieving members by team name:", error);
+      return null;
+    } finally {
+      await session.close();
+    }
+  }
 }
 
 export default MemberService;
