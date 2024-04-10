@@ -32,8 +32,9 @@ const TeamSchema = createSchema({
     },
     Mutation: {
       createTeam: async(_,{name,description,leader}) =>{
+        const response = await teamService.createTeam({name,description,leader});
         await memberOfService.addMemberToTeam(leader,name);
-        return await teamService.createTeam({name,description,leader});
+        return response;
       },
     }
   },
