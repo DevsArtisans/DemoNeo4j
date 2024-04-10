@@ -61,4 +61,24 @@ class ActivityProjectService {
       await session.close();
     }
   }
+
+  async getProjectsByMemberEmail(memberEmail: string): Promise<ActivityProject[] | null> {
+    const session = driver.session();
+    try {
+      const result = await session.run(
+        `MATCH (m:Member {email: $memberEmail})-[:PARTICIPATES_IN]->(p:Project)-[:HAS_ACTIVITY_PROJECT]->(a:ActivityProject) RETURN a`,
+        { memberEmail }
+      );
+
+      return result.records.map((record) => record.get(0).properties as ActivityProject);
+    } catch (error) {
+      console.error("Error retrieving projects by member email:", error);
+      return null;
+    } finally {
+      await session.close();
+    } 
+  }
 }
+
+
+export default ActivityProjectService;
