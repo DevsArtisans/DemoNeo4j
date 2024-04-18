@@ -7,12 +7,13 @@ class ActivityProjectService {
     const session = driver.session();
     try {
       const result = await session.run(
-        `CREATE (a:ActivityProject {
+        `CREATE (a:ActivityProject {codigo: $codigo,
           name: $name, description: $description, status: $status,
           methodology: $methodology, creationDate: $creationDate,
           startDate: $startDate, finalDate: $finalDate
         }) RETURN a`,
         {
+          codigo: activityProject.codigo,
           name: activityProject.name,
           description: activityProject.description,
           status: activityProject.status,
@@ -36,8 +37,6 @@ class ActivityProjectService {
     } catch (error) {
       console.error("Error creating activity project:", error);
       return null;
-    } finally {
-      await session.close();
     }
   }
 
@@ -57,8 +56,6 @@ class ActivityProjectService {
     } catch (error) {
       console.error("Error retrieving activity project by name:", error);
       return null;
-    } finally {
-      await session.close();
     }
   }
 
@@ -74,9 +71,7 @@ class ActivityProjectService {
     } catch (error) {
       console.error("Error retrieving projects by member email:", error);
       return null;
-    } finally {
-      await session.close();
-    } 
+    }
   }
   
 }
